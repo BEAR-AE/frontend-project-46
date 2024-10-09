@@ -1,15 +1,27 @@
-import { readFileSync } from 'fs';
 import path from 'path';
+import parseFileJson from './parseFile.js';
+import getFormatter from './formatters/getFormatter.js';
+import compareValues from './compareValues.js';
 
-const genDiff = (filepath1, filepath2) => {
-  const absoluteFile1 = path.resolve(filepath1);
-  const absoluteFile2 = path.resolve(filepath2);
+const getParsingFiles = (filePath) => {
+  const fileExtension = path.extname(filePath);
 
-  const fileContent1 = readFileSync(absoluteFile1, 'utf8');
-  const fileContent2 = readFileSync(absoluteFile2, 'utf8');
+  if (fileExtension === '.json') {
+    return parseFileJson(filePath);
+  }
 
-  console.log(fileContent1);
-  console.log(fileContent2);
+  throw new Error('Non supported format');
+};
+
+const genDiff = (file1, file2, format = 'stylish') => {
+  const parsedFile1 = getParsingFiles(file1);
+  const parsedFile2 = getParsingFiles(file2);
+
+  const result = compareValues(parsedFile1, parsedFile2);
+
+  const formatter = getFormatter(format);
+
+  return formatter(result);
 };
 
 export default genDiff;
