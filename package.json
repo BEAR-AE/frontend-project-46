@@ -8,12 +8,13 @@
     "code": "bin/gendiff.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jest --coverage"
   },
   "author": "Aleksandr Eremin",
   "license": "ISC",
   "dependencies": {
     "commander": "^12.1.0",
+    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
