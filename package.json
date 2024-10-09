@@ -2,13 +2,13 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "Calculating differences",
-  "main": "src/genDiff.js",
+  "main": "src/getdiff.js",
   "type": "module",
   "bin": {
     "code": "bin/gendiff.js"
   },
   "scripts": {
-    "test": "npx jest --coverage"
+    "test": "npx jest"
   },
   "author": "Aleksandr Eremin",
   "license": "ISC",
