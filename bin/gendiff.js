@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import genDiff from '../src/genDiff.js';
+import getDiff from '../src/getdiff.js';
 
 const program = new Command();
 
@@ -9,12 +9,11 @@ program
   .description('Compares two configuration files and shows a difference.')
   .version('1.0.0')
   .option('-f, --format <type>', 'output format', 'stylish')
-  .argument('<filepath1>')
-  .argument('<filepath2>')
+  .argument('<filepath1>', 'first configuration file')
+  .argument('<filepath2>', 'second configuration file')
   .action((filepath1, filepath2, options) => {
-    const format = options.format || 'stylish';
-    console.log(genDiff(filepath1, filepath2, format));
-    return genDiff(filepath1, filepath2, format);
+    const result = getDiff(filepath1, filepath2, options.format);
+    console.log(result);
   });
 
 program.parse();

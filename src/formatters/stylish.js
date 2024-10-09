@@ -1,46 +1,28 @@
-import _ from 'lodash';
+const space = (depths, replacer = ' ', spacesCount = 4) => replacer.repeat(depths * spacesCount);
 
-const indent = (depth, indentSize = 4) => ' '.repeat(indentSize * depth);
-
-const formatValue = (value, depth) => {
-  if (_.isPlainObject(value)) {
-    const entries = Object.entries(value).map(
-      ([key, val]) => `${indent(depth)}${key}: ${formatValue(val, depth + 1)}`,
-    );
-    return `{\n${entries.join('\n')}\n${indent(depth - 1)}}`;
-  }
-
-  return value;
+const stringify = (data, depth) => {
+  if (!(data instanceof Object)) { return data; }
+  const entries = Object.entries(data);
+  const str = entries.map(([key, value]) => `\n${space(depth + 1)}${key}: ${stringify(value, depth + 1)}`).join('');
+  return `{${str}\n${space(depth)}}`;
 };
 
-const stylishFormat = (diffData) => {
-  const formattingFunction = (data, depth = 1) => {
-    const finalResult = data.flatMap((node) => {
-      const currentIndent = indent(depth);
-      const markerIndent = currentIndent.slice(2);
+const stylish = (inputData) => {
+  const inner = (data, depth) => {
+    const arr = data.map((item) => {
       const nextDepth = depth + 1;
-
-      switch (node.type) {
-        case 'nested':
-          return `${currentIndent}${node.key}: {\n${formattingFunction(node.children, nextDepth)}\n${currentIndent}}`;
-        case 'added':
-          return `${markerIndent}+ ${node.key}: ${formatValue(node.value, nextDepth)}`;
-        case 'removed':
-          return `${markerIndent}- ${node.key}: ${formatValue(node.value, nextDepth)}`;
-        case 'changed':
-          return [
-            `${markerIndent}- ${node.key}: ${formatValue(node.oldValue, nextDepth)}`,
-            `${markerIndent}+ ${node.key}: ${formatValue(node.newValue, nextDepth)}`,
-          ].join('\n');
-        default:
-          return `${currentIndent}${node.key}: ${formatValue(node.value, nextDepth)}`;
+      switch (item.type) {
+        case 'added': return `${space(depth)}  + ${item.key}: ${stringify(item.value, nextDepth)}`;
+        case 'deleted': return `${space(depth)}  - ${item.key}: ${stringify(item.value, nextDepth)}`;
+        case 'changed': return `${space(depth)}  - ${item.key}: ${stringify(item.value1, nextDepth)}\n${space(depth)}  + ${item.key}: ${stringify(item.value2, nextDepth)}`;
+        case 'nested': return `${space(nextDepth)}${item.key}: {\n${inner(item.children, nextDepth)}\n${space(nextDepth)}}`;
+        case 'unchanged': return `${space(depth)}    ${item.key}: ${stringify(item.value, nextDepth)}`;
+        default: throw new Error(`Unknown item type: '${item.type}'!`);
       }
     });
-
-    return finalResult.join('\n');
+    return arr.join('\n');
   };
-
-  return `{\n${formattingFunction(diffData)}\n}`;
+  return `{\n${inner(inputData, 0)}\n}`;
 };
 
-export default stylishFormat;
+export default stylish;
