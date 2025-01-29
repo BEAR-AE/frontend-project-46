@@ -1,0 +1,23 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "Compares two configuration files and shows a difference",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "code": "bin/gendiff.js"
+  },
+  "scripts": {
+    "test": "npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BEAR-AE/frontend-project-46.git"
+  },
+  "author": "Aleksandr Eremin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BEAR-AE/frontend-project-46/issues"
+  },
+  "homepage": "https://github.com/BEAR-AE/frontend-project-46#readme"
+}
