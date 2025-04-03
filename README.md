@@ -7,3 +7,4 @@
 
 [![asciicast](https://asciinema.org/a/5k7DpTqlyw9wnNWveiKxurZ0d.svg)](https://asciinema.org/a/5k7DpTqlyw9wnNWveiKxurZ0d)
 
+[![asciicast](https://asciinema.org/a/YfppW073n2BGFM9w1TH34nS38.svg)](https://asciinema.org/a/YfppW073n2BGFM9w1TH34nS38)
