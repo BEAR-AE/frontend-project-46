@@ -1,0 +1,23 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "Gendiff is a software, that gets differences between two file structures",
+  "bin": {
+    "gendiff": "./bin/gendiff.js"
+  },
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BEAR-AE/frontend-project-46.git"
+  },
+  "author": "Aleksandr Eremin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BEAR-AE/frontend-project-46/issues"
+  },
+  "homepage": "https://github.com/BEAR-AE/frontend-project-46#readme"
+}
