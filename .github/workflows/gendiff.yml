@@ -1,4 +1,4 @@
-name: Gendiff testing
+name: gendiff
 
 on:
   push:
