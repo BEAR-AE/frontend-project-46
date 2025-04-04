@@ -1,1 +1,28 @@
+name: Gendiff testing
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  gendiff-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Make commands
+        run: make lint test
+        id: test
+
+      - name: Test & publish code coverage
+        uses: BEAR-AE/codeclimate-action@v5.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          with:
+          coverageCommand: make test-coverage
+          debug: true
