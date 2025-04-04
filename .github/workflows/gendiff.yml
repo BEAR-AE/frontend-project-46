@@ -18,11 +18,5 @@ jobs:
       - name: Run Make commands
         run: make lint test
         id: test
-
-      - name: Test & publish code coverage
-        uses: BEAR-AE/codeclimate-action@v5.0.0
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-          with:
-          coverageCommand: make test-coverage
-          debug: true
+          
+         
