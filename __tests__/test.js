@@ -26,5 +26,5 @@ test('testing parser for non format', () => {
 });
 
 test('testing getformatter with unknown format', () => {
-  expect(() => genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'), 'konobaka')).toThrow(Error('Unknown format: konobaka'));
+  expect(() => genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'), 'Error')).toThrow(Error('Unknown format: Error'));
 });
