@@ -1,6 +1,6 @@
 import yaml from 'js-yaml';
 
-const parser = (fileContent, fileFormat) => {
+const getParser = (fileContent, fileFormat) => {
   if (fileFormat === 'json') {
     return JSON.parse(fileContent);
   }
@@ -12,4 +12,4 @@ const parser = (fileContent, fileFormat) => {
   throw new Error('Non supported format of file');
 };
 
-export default parser;
+export default getParser;
