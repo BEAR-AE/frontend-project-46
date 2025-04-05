@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import parser from './parsers.js';
+import getParser from './parsers.js';
 import getFormatter from './formatters/getFormatter.js';
 import compareValues from './compareValues.js';
 
@@ -17,8 +17,8 @@ const genDiff = (file1, file2, format = 'stylish') => {
   const [content1, format1] = getContent(file1);
   const [content2, format2] = getContent(file2);
 
-  const parsedFile1 = parser(content1, format1);
-  const parsedFile2 = parser(content2, format2);
+  const parsedFile1 = getParser(content1, format1);
+  const parsedFile2 = getParser(content2, format2);
 
   const result = compareValues(parsedFile1, parsedFile2);
 
