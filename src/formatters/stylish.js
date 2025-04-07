@@ -27,13 +27,15 @@ const stylishFormat = (diffData) => {
           return `${markerIndent}+ ${node.key}: ${formatValue(node.value, nextDepth)}`;
         case 'removed':
           return `${markerIndent}- ${node.key}: ${formatValue(node.value, nextDepth)}`;
+        case 'unchanged':
+          return `${currentIndent}${node.key}: ${formatValue(node.value, nextDepth)}`;
         case 'changed':
           return [
             `${markerIndent}- ${node.key}: ${formatValue(node.firstValue, nextDepth)}`,
             `${markerIndent}+ ${node.key}: ${formatValue(node.secondValue, nextDepth)}`,
           ].join('\n');
         default:
-          return `${currentIndent}${node.key}: ${formatValue(node.value, nextDepth)}`;
+          throw new Error(`Unsupported node type: '${node.type}'`);
       }
     });
 
