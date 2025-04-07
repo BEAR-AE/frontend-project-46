@@ -29,3 +29,4 @@ describe('gendifflogic', () => {
   test('should throw error for unknown format', () => {
     expect(() => genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'), 'Error')).toThrowError('Unknown format: Error');
   });
+});
