@@ -1,11 +1,12 @@
 import _ from 'lodash';
 
-const isComplex = (value) => typeof value === 'object' && value !== null && !Array.isArray(value);
+const isComplex = (value) => _.isObject(value) && !_.isArray(value) && !_.isNull(value);
+
 const formatValue = (value) => {
   if (isComplex(value)) {
     return '[complex value]';
   }
-  return typeof value === 'string' ? `'${value}'` : String(value);
+  return _.isString(value) ? `'${value}'` : String(value);
 };
 
 const plainFormat = (diffData, parent = '') => {
@@ -26,9 +27,9 @@ const plainFormat = (diffData, parent = '') => {
       default:
         throw new Error(`Unsupported node type: '${entry.type}'`);
     }
-  });
+  }).filter(Boolean);
 
-  return result.filter((entry) => entry !== null).join('\n');
+  return result.join('\n');
 };
 
 export default plainFormat;
