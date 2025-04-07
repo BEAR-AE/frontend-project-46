@@ -1,12 +1,10 @@
-import _ from 'lodash';
-
-const isComplex = (value) => _.isObject(value) && !_.isArray(value) && !_.isNull(value);
+const isComplex = (value) => typeof value === 'object' && value !== null && !Array.isArray(value);
 
 const formatValue = (value) => {
   if (isComplex(value)) {
     return '[complex value]';
   }
-  return _.isString(value) ? `'${value}'` : String(value);
+  return typeof value === 'string' ? `'${value}'` : String(value);
 };
 
 const plainFormat = (diffData, parent = '') => {
@@ -14,20 +12,22 @@ const plainFormat = (diffData, parent = '') => {
     const fullPath = parent ? `${parent}.${entry.key}` : entry.key;
 
     switch (entry.type) {
-      case 'nested':
-        return plainFormat(entry.children, fullPath);
       case 'added':
         return `Property '${fullPath}' was added with value: ${formatValue(entry.value)}`;
       case 'removed':
         return `Property '${fullPath}' was removed`;
+      case 'unchanged':
+        return null;
       case 'changed':
         return `Property '${fullPath}' was updated. From ${formatValue(entry.firstValue)} to ${formatValue(entry.secondValue)}`;
+      case 'nested':
+        return plainFormat(entry.children, fullPath);
       default:
-        return [];
+        throw new Error(`Unsupported node type: '${entry.type}'`);
     }
   });
 
-  return result.join('\n');
+  return result.filter((entry) => entry !== null).join('\n');
 };
 
 export default plainFormat;
