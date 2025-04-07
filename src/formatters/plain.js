@@ -1,5 +1,6 @@
-const isComplex = (value) => typeof value === 'object' && value !== null && !Array.isArray(value);
+import _ from 'lodash';
 
+const isComplex = (value) => typeof value === 'object' && value !== null && !Array.isArray(value);
 const formatValue = (value) => {
   if (isComplex(value)) {
     return '[complex value]';
