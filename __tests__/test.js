@@ -24,10 +24,10 @@ describe('gendifflogic', () => {
   });
 
   test('should throw error for non-supported format', () => {
-    expect(() => genDiff(getFixturePath('file5.txt'), getFixturePath('file6.txt'))).toThrowError('Non supported format of file');
+    expect(() => genDiff(getFixturePath('file5.txt'), getFixturePath('file6.txt'))).toThrow('Non supported format of file');
   });
 
   test('should throw error for unknown format', () => {
-    expect(() => genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'), 'Error')).toThrowError('Unknown format: Error');
+    expect(() => genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'), 'Error')).toThrow('Unknown format: Error');
   });
 });
