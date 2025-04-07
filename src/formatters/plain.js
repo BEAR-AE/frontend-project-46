@@ -10,22 +10,22 @@ const formatValue = (value) => {
 };
 
 const plainFormat = (diffData, parent = '') => {
-  const result = diffData.flatMap((entry) => {
-    const fullPath = parent ? `${parent}.${entry.key}` : entry.key;
+  const result = diffData.flatMap((node) => {
+    const fullPath = parent ? `${parent}.${node.key}` : node.key;
 
-    switch (entry.type) {
+    switch (node.type) {
       case 'added':
-        return `Property '${fullPath}' was added with value: ${formatValue(entry.value)}`;
+        return `Property '${fullPath}' was added with value: ${formatValue(node.value)}`;
       case 'removed':
         return `Property '${fullPath}' was removed`;
       case 'unchanged':
         return null;
       case 'changed':
-        return `Property '${fullPath}' was updated. From ${formatValue(entry.firstValue)} to ${formatValue(entry.secondValue)}`;
+        return `Property '${fullPath}' was updated. From ${formatValue(node.firstValue)} to ${formatValue(node.secondValue)}`;
       case 'nested':
-        return plainFormat(entry.children, fullPath);
+        return plainFormat(node.children, fullPath);
       default:
-        throw new Error(`Unsupported node type: '${entry.type}'`);
+        throw new Error(`Unsupported node type: '${node.type}'`);
     }
   }).filter(Boolean);
 
